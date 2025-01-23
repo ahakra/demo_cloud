@@ -1,0 +1,14 @@
+resources:
+  - name: gke-cluster
+    type: container.v1.cluster
+    properties:
+      zone: us-central1-a
+      cluster:
+        name: gke-cluster
+        zone: us-central1-a
+        nodeConfig:
+          machineType: g1-small
+          diskSizeGb: 10
+          oauthScopes:
+            - "https://www.googleapis.com/auth/cloud-platform"
+        initialNodeCount: 2
