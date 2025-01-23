@@ -6,11 +6,11 @@ FROM golang:1.23-alpine AS builder
 WORKDIR /app
 
 # Copy Go modules and dependencies
-COPY go.mod go.sum ./
+COPY ../../go.mod go.sum ./
 RUN go mod download
 
 # Copy the source code
-COPY . .
+COPY ../.. .
 
 # Build the application
 ARG COMMIT_HASH
