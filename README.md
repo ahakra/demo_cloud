@@ -18,5 +18,5 @@ A simple cloud application with a single `healthcheck` endpoint to verify the ap
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/demo_cloud.git
+   git clone https://github.com/ahakra/demo_cloud.git
    cd demo_cloud
