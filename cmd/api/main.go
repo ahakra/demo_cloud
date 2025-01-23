@@ -20,7 +20,7 @@ type application struct {
 	logger *slog.Logger
 }
 
-const version = "1.0.0"
+var version string
 
 type responseData map[string]any
 
