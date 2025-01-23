@@ -14,3 +14,7 @@ vet:
 	go vet ./...
 lint: fmt vet
 	golangci-lint run
+
+PHONEY: test
+test:
+	go test -v .\cmd\api\
