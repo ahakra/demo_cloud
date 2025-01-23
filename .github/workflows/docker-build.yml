@@ -48,3 +48,4 @@ jobs:
         run: |
           docker tag demo-cloud:${{ env.commit }} ghcr.io/ahakra/demo_cloud:${{ env.commit }}
           docker push ghcr.io/ahakra/demo_cloud:${{ env.commit }}
+
