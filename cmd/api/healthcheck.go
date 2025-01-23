@@ -1,13 +1,19 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+	"os"
+)
 
 func (app *application) healthcheckHandler(w http.ResponseWriter, r *http.Request) {
+
+	value := os.Getenv("MY_SECRET_KEY")
 
 	res := responseData{
 		"Status":      "Available",
 		"Envirnoment": app.config.env,
 		"version":     version,
+		"Secret":      value,
 	}
 
 	err := app.writeJSON(w, http.StatusOK, res, nil)
