@@ -15,15 +15,12 @@ jobs:
       # Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Check for Secrets
-        if: secrets.GCP_SA_KEY == ''
-        run: echo "GCP_SA_KEY secret is not available. Skipping this step."
 
       # Set up Google Cloud authentication
       - name: Set up Google Cloud Authentication
-        uses: google-github-actions/auth@v2
+        uses: 'google-github-actions/auth@v2'
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
 
       # Set up kubectl to use GKE
