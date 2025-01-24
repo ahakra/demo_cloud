@@ -55,7 +55,7 @@ setgcpacc:
 
 .PHONY: getcred
 getcred:
-	gcloud container clusters get-credentials gke-cluster --zone us-central1-a
+	gcloud container clusters get-credentials gke-cluster --zone me-central1-a
 
 
 .PHONY: installvault
@@ -77,3 +77,7 @@ configurevault:
 
 .PHONY: setup-cluster
 setup-cluster: iacup authgcp setgcpacc getcred installvault configurevault
+
+.PHONY: prom
+prom:
+	 kubectl port-forward --namespace default prometheus-1-prometheus-0  9090
