@@ -33,7 +33,7 @@ jobs:
         # Set up kubectl to use GKE
       - name: Set up kubectl
         run: |
-          gcloud container clusters get-credentials YOUR_CLUSTER_NAME \
+          gcloud container clusters get-credentials gke-cluster \
             --zone e2-standard-2 \
             --project ${{ secrets.GCP_PROJECT_ID }}
       # Optionally, you can verify kubectl is connected to your cluster
