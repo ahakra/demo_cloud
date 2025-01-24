@@ -7,7 +7,12 @@ on:
     types:
       - completed
 
-
+env:
+  PROJECT_ID: ${{ secrets.GKE_CLUSTER }}
+  GKE_CLUSTER: gke-cluster    # Add your cluster name here.
+  GKE_ZONE: me-central1-a   # Add your cluster zone here.
+  DEPLOYMENT_NAME: gke-test # Add your deployment name here.
+  IMAGE: static-site
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -35,6 +40,16 @@ jobs:
 #          gcloud container clusters get-credentials gke-cluster \
 #            --zone me-central1-a \
 #            --project ${{ secrets.GCP_PROJECT_ID }}
+      - run: |-
+          gcloud --quiet auth configure-docker
+
+      - name: auth gc
+        uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
+        with:
+          cluster_name: ${{ env.GKE_CLUSTER }}
+          location: ${{ env.GKE_ZONE }}
+          credentials: ${{ secrets.GKE_SA_KEY }}
+
       # Optionally, you can verify kubectl is connected to your cluster
       - name: Verify kubectl config
         run: kubectl get nodes
