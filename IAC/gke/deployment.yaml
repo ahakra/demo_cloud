@@ -2,12 +2,12 @@ resources:
   - name: gke-cluster
     type: container.v1.cluster
     properties:
-      zone: us-central1-a
+      zone: me-central1-a
       cluster:
         name: gke-cluster
-        zone: us-central1-a
+        zone: me-central1-a
         nodeConfig:
-          machineType: n1-standard-1
+          machineType: e2-medium
           diskSizeGb: 10
           oauthScopes:
             - "https://www.googleapis.com/auth/cloud-platform"
