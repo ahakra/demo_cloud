@@ -11,6 +11,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # Allow GitHub to generate the OIDC token
+      contents: read   # Optional: For repository access
     steps:
       # Checkout the code
       - name: Checkout code
