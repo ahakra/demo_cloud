@@ -11,4 +11,4 @@ resources:
           diskSizeGb: 10
           oauthScopes:
             - "https://www.googleapis.com/auth/cloud-platform"
-        initialNodeCount: 1
+        initialNodeCount: 2

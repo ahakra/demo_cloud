@@ -33,6 +33,14 @@ iacup:
 	cd $(IAC_DIR) && gcloud deployment-manager deployments create gke-deployment \
                              --config deployment.yaml
 
+
+
+.PHONY: iacupdate
+iacupdate:
+	cd $(IAC_DIR) && gcloud deployment-manager deployments update gke-deployment \
+							 --config deployment.yaml
+
+
 .PHONY: iacdown
 iacdown:
 	cd $(IAC_DIR) && gcloud deployment-manager deployments delete gke-deployment --quiet
@@ -58,7 +66,7 @@ installvault:
 	kubectl get pods
 
 .PHONY: configurevault
-configurevalut:
+configurevault:
 	source ~/.bashrc
 	kubectl exec vault-0 -- vault operator init -key-shares=1 -key-threshold=1 -format=json > $(VPATH)
 	kubectl exec vault-0 -- vault operator unseal $(VAULT_UNSEAL_KEY)
