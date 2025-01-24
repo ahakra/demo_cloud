@@ -67,3 +67,5 @@ jobs:
       - name: Use the Vault secret
         run: |
               echo "The topsecret is  $TOP_SECRET_ENV_VAR"
+      - name: Debug Environment Variables
+        run: env | grep TOP_SECRET_ENV_VAR
