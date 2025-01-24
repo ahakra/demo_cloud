@@ -53,3 +53,15 @@ jobs:
       # Optionally, you can verify kubectl is connected to your cluster
       - name: Verify kubectl config
         run: kubectl get nodes
+
+
+      - name: Retrieve secrets from Vault
+        uses: hashicorp/vault-action@v2.4.0
+        with:
+          url: ${{ secrets.VAULT_ADDR }}
+          token: ${{ secrets.VAULT_TOKEN }}
+          secrets: |
+            secret/democloud/config topsecret | TOP_SECRET_ENV_VAR ;
+      - name: Use the secret
+        run: |
+          echo "The value of TOP_SECRET_ENV_VAR is $TOP_SECRET_ENV_VAR"

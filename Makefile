@@ -67,11 +67,11 @@ installvault:
 
 .PHONY: configurevault
 configurevault:
-	source ~/.bashrc
-	kubectl exec vault-0 -- vault operator init -key-shares=1 -key-threshold=1 -format=json > $(VPATH)
-	kubectl exec vault-0 -- vault operator unseal $(VAULT_UNSEAL_KEY)
-	kubectl exec vault-0 -- vault login $(CLUSTER_ROOT_TOKEN)
-	kubectl exec vault-0 -- vault status
+	#source ~/.bashrc
+	#kubectl exec vault-0 -- vault operator init -key-shares=1 -key-threshold=1 -format=json > $(VPATH)
+	#kubectl exec vault-0 -- vault operator unseal $(VAULT_UNSEAL_KEY)
+	#kubectl exec vault-0 -- vault login $(CLUSTER_ROOT_TOKEN)
+	#kubectl exec vault-0 -- vault status
 
 
 
