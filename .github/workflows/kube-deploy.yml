@@ -64,7 +64,10 @@ jobs:
           # Fetch the secret from Vault and extract 'topsecret'
           export TOPSECRET=$(curl --header "X-Vault-Token: $VAULT_TOKEN" \
           $VAULT_ADDR/v1/secret/data/democloud/config | jq -r '.data.data.topsecret')
-          
+           if [ -z "$TOPSECRET" ]; then
+            echo "Error: Failed to retrieve 'topsecret' from Vault."
+            exit 1
+          fi
           # Set the secret as an environment variable for subsequent steps
           echo "TOPSECRET=$TOPSECRET" >> $GITHUB_ENV
           
