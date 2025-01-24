@@ -56,12 +56,19 @@ jobs:
 
 
       - name: Retrieve secrets from Vault
-        uses: hashicorp/vault-action@v2.4.0
-        with:
-          url: ${{ secrets.VAULT_ADDR }}
-          token: ${{ secrets.VAULT_TOKEN }}
-          secrets: |
-            secret/democloud/config topsecret | TOP_SECRET_ENV_VAR ;
-      - name: Use the secret
         run: |
-          echo "The value of TOP_SECRET_ENV_VAR is $TOP_SECRET_ENV_VAR"
+          # Export Vault token and address from GitHub Secrets
+          export VAULT_ADDR="${{ secrets.VAULT_ADDR }}"  # Vault URL from GitHub Secrets
+          export VAULT_TOKEN="${{ secrets.VAULT_TOKEN }}"  # Vault token from GitHub Secrets
+          
+          # Fetch the secret from Vault and extract 'topsecret'
+          export TOPSECRET=$(curl --header "X-Vault-Token: $VAULT_TOKEN" \
+          $VAULT_ADDR/v1/secret/data/democloud/config | jq -r '.data.data.topsecret')
+          
+          # Set the secret as an environment variable for subsequent steps
+          echo "TOPSECRET=$TOPSECRET" >> $GITHUB_ENV
+          
+          # Use the Vault secret in a subsequent step
+          - name: Use the Vault secret
+            run: |
+              echo "The topsecret is $TOPSECRET"
