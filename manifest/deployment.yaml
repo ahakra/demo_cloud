@@ -13,14 +13,13 @@ spec:
     metadata:
       labels:
         app: democloud
-      annotations:
-        vault.hashicorp.com/agent-inject: "true"
-        vault.hashicorp.com/role: "democloud"
-        vault.hashicorp.com/agent-inject-secret-credentials.txt: "secret/data/democloud/config"
     spec:
       serviceAccountName: internal-app
       containers:
         - name: democloud
-          image: ghcr.io/ahakra/demo_cloud:d8707fc
+          image: ghcr.io/ahakra/demo_cloud:${IMAGE_TAG} # Placeholder for the image
           ports:
             - containerPort: 4000
+          env:
+            - name: MY_SECRET_KEY
+              value: "${TOP_SECRET}" # Placeholder for the secret
