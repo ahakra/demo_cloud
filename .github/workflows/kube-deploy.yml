@@ -54,24 +54,16 @@ jobs:
       - name: Verify kubectl config
         run: kubectl get nodes
 
+      - name: Import Secrets
+        id: import-secrets
+        uses: hashicorp/vault-action@v2
+        with:
+            url: ${{ secrets.VAULT_ADDR }}
+            token: ${{ secrets.VAULT_TOKEN }}
+            secrets: |
+              secret/data/democloud/config topsecret | ${{env.TOP_SECRET_ENV_VAR}} 
+            
 
-      - name: Retrieve secrets from Vault
+      - name: Use the Vault secret
         run: |
-          # Export Vault token and address from GitHub Secrets
-          export VAULT_ADDR="${{ secrets.VAULT_ADDR }}"  # Vault URL from GitHub Secrets
-          export VAULT_TOKEN="${{ secrets.VAULT_TOKEN }}"  # Vault token from GitHub Secrets
-          
-          # Fetch the secret from Vault and extract 'topsecret'
-          export TOPSECRET=$(curl --header "X-Vault-Token: $VAULT_TOKEN" \
-          $VAULT_ADDR/v1/secret/data/democloud/config | jq -r '.data.data.topsecret')
-           if [ -z "$TOPSECRET" ]; then
-            echo "Error: Failed to retrieve 'topsecret' from Vault."
-            exit 1
-          fi
-          # Set the secret as an environment variable for subsequent steps
-          echo "TOPSECRET=$TOPSECRET" >> ${{env.TOP_SECRET_ENV_VAR}}
-          
-          # Use the Vault secret in a subsequent step
-          - name: Use the Vault secret
-            run: |
               echo "The topsecret is ${{env.TOP_SECRET_ENV_VAR}}"
