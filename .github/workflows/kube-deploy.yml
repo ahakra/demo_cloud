@@ -1,0 +1,33 @@
+name: Deploy on kubernetes
+
+on:
+  workflow_run:
+    workflows:
+      - Build and Deploy Docker Image
+    types:
+      - completed
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Google Cloud authentication
+      - name: Set up Google Cloud Authentication
+        uses: google-github-actions/auth@v0.4.0
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      # Set up kubectl to use GKE
+      - name: Set up kubectl
+        run: |
+          gcloud container clusters get-credentials YOUR_CLUSTER_NAME \
+            --zone YOUR_CLUSTER_ZONE \
+            --project YOUR_PROJECT_ID
+      # Optionally, you can verify kubectl is connected to your cluster
+      - name: Verify kubectl config
+        run: kubectl get nodes

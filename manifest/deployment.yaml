@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: democloud
+  labels:
+    app: democloud
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: democloud
+  template:
+    metadata:
+      labels:
+        app: democloud
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "democloud"
+        vault.hashicorp.com/agent-inject-secret-credentials.txt: "secret/data/democloud/config"
+    spec:
+      serviceAccountName: internal-app
+      containers:
+        - name: democloud
+          image: ghcr.io/ahakra/demo_cloud:d8707fc
+          ports:
+            - containerPort: 4000

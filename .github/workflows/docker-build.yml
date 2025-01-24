@@ -10,42 +10,44 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Print Hello Message
+      - run: echo "Hello! This is a demo GitHub Actions workflow. 🚀"
       # Step 1: Checkout the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # Step 2: Set up Go environment
-      - name: Setup Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.23.2' # Replace with your Go version
-
-      # Step 3: Get the latest commit hash
-      - name: Get commit hash
-        id: get_commit
-        run: echo "commit=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
-      # Step 4: Build the Go app
-      - name: Build Go application
-        run: |
-          go build -ldflags "-X main.version=${{ env.commit }}" -o app cmd/api/*
-
-      # Step 5: Build and tag Docker image
-      - name: Build Docker image
-        run: |
-          docker build -t demo-cloud:${{ env.commit }} .
-
-      # Step 6: Authenticate with GitHub Docker registry
-      - name: Log in to GitHub Docker Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      # Step 7: Push Docker image
-      - name: Push Docker image
-        run: |
-          docker tag demo-cloud:${{ env.commit }} ghcr.io/ahakra/demo_cloud:${{ env.commit }}
-          docker push ghcr.io/ahakra/demo_cloud:${{ env.commit }}
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      # Step 2: Set up Go environment
+#      - name: Setup Go
+#        uses: actions/setup-go@v4
+#        with:
+#          go-version: '1.23.2' # Replace with your Go version
+#
+#      # Step 3: Get the latest commit hash
+#      - name: Get commit hash
+#        id: get_commit
+#        run: echo "commit=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+#
+#      # Step 4: Build the Go app
+#      - name: Build Go application
+#        run: |
+#          go build -ldflags "-X main.version=${{ env.commit }}" -o app cmd/api/*
+#
+#      # Step 5: Build and tag Docker image
+#      - name: Build Docker image
+#        run: |
+#          docker build -t demo-cloud:${{ env.commit }} .
+#
+#      # Step 6: Authenticate with GitHub Docker registry
+#      - name: Log in to GitHub Docker Registry
+#        uses: docker/login-action@v2
+#        with:
+#          registry: ghcr.io
+#          username: ${{ github.actor }}
+#          password: ${{ secrets.GITHUB_TOKEN }}
+#
+#      # Step 7: Push Docker image
+#      - name: Push Docker image
+#        run: |
+#          docker tag demo-cloud:${{ env.commit }} ghcr.io/ahakra/demo_cloud:${{ env.commit }}
+#          docker push ghcr.io/ahakra/demo_cloud:${{ env.commit }}
 

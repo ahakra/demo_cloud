@@ -7,8 +7,8 @@ resources:
         name: gke-cluster
         zone: us-central1-a
         nodeConfig:
-          machineType: g1-small
+          machineType: n1-standard-1
           diskSizeGb: 10
           oauthScopes:
             - "https://www.googleapis.com/auth/cloud-platform"
-        initialNodeCount: 2
+        initialNodeCount: 1
