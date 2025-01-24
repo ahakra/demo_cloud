@@ -15,6 +15,9 @@ jobs:
       # Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Check for Secrets
+        if: secrets.GCP_SA_KEY == ''
+        run: echo "GCP_SA_KEY secret is not available. Skipping this step."
 
       # Set up Google Cloud authentication
       - name: Set up Google Cloud Authentication
