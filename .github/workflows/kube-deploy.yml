@@ -32,11 +32,12 @@ jobs:
         run: |
           echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
           curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo tee /usr/share/keyrings/cloud.google.gpg
-          sudo apt-get update && sudo apt-get install google-cloud-sdk
+          sudo apt-get update --allow-unauthenticated && sudo apt-get install google-cloud-sdk --allow-unauthenticated
+
 
       - name: Install gke-gcloud-auth-plugin
         run: |
-          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
+          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin -allow-unauthenticated
           
 
         # Set up kubectl to use GKE
