@@ -23,3 +23,22 @@ spec:
           env:
             - name: MY_SECRET_KEY
               value: "${TOP_SECRET}" # Placeholder for the secret
+
+----
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: democloud-service
+  labels:
+    app: democloud
+spec:
+  selector:
+    app: democloud
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80          # External port exposed by the LoadBalancer
+      targetPort: 4000  # Port your container is listening on
+
+
