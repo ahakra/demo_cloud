@@ -39,7 +39,7 @@ jobs:
       # Step 5: Build and tag Docker image
       - name: Build Docker image
         run: |
-          docker build -t demo-cloud:${{ env.commit }} .
+          docker build -t demo-cloud:${{ github.sha }} .
 
       # Step 6: Authenticate with GitHub Docker registry
       - name: Log in to GitHub Docker Registry
