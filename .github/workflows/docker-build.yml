@@ -32,7 +32,8 @@ jobs:
         run: echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
       - name: Print commit hash for debugging
-        run: echo "Commit hash: ${{ env.COMMIT_HASH }}"
+        run: |
+              echo "Commit hash: ${{ env.COMMIT_HASH }}"
 
 
       # Step 4: Build the Go app
