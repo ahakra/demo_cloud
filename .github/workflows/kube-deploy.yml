@@ -6,6 +6,7 @@ on:
       - Build and Deploy Docker Image
     types:
       - completed
+    status: success
 
 env:
   PROJECT_ID: ${{ secrets.GKE_CLUSTER }}
