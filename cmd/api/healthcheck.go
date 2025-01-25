@@ -12,7 +12,7 @@ func (app *application) healthcheckHandler(w http.ResponseWriter, r *http.Reques
 	res := responseData{
 		"Status":      "Available",
 		"Envirnoment": app.config.env,
-		"version":     version,
+		"version":     Version,
 		"Secret":      value,
 	}
 
