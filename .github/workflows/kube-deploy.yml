@@ -70,10 +70,6 @@ jobs:
       - name: Debug Environment Variables
         run: env | grep TOP_SECRET_ENV_VAR
 
-      - name: Set commit hash as environment variable
-        run: |
-              echo "commit=${{ github.sha }}" >> $GITHUB_ENV
-
 
       - name: Replace placeholders
         run: |
