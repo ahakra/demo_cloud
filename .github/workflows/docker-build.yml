@@ -45,7 +45,7 @@ jobs:
       # Step 5: Build and tag Docker image
       - name: Build Docker image
         run: |
-          docker build -t demo-cloud:${{ github.sha }} .
+          docker build -t demo-cloud:${{ github.sha }} . --build-arg COMMIT_HASH=${{ env.COMMIT_HASH }} 
 
       # Step 6: Authenticate with GitHub Docker registry
       - name: Log in to GitHub Docker Registry
