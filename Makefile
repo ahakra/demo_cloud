@@ -1,6 +1,6 @@
 # Variables
 APP_NAME := demo_cloud
-COMMIT_HASH ?= $(shell git rev-parse --short HEAD)
+COMMIT_HASH ?= $(shell git rev-parse  HEAD)
 BUILD_DIR := ./bin/demo_cloud
 GO_FILES := ./cmd/api
 IAC_DIR := ./IAC/gke
@@ -9,7 +9,7 @@ IAC_DIR := ./IAC/gke
 .PHONY: build
 build:
 	echo "Building the project..."
-	go  build -ldflags "-X main.version=$(COMMIT_HASH)" -o $(BUILD_DIR) $(GO_FILES)
+	go  build -ldflags "-X main.Version=$(COMMIT_HASH)" -o $(BUILD_DIR) $(GO_FILES)
 
 PHONY: run
 run:

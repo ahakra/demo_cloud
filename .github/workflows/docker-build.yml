@@ -29,12 +29,12 @@ jobs:
       # Step 3: Get the latest commit hash
       - name: Get commit hash
         id: get_commit
-        run: echo "commit=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        run: echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
       # Step 4: Build the Go app
       - name: Build Go application
         run: |
-          go build -ldflags="-s -w -X main.Version=${GITHUB_SHA}" -o app cmd/api/*
+          go build -ldflags="-s -w -X main.Version=${COMMIT_HASH}" -o app cmd/api/*
 
 
       # Step 5: Build and tag Docker image
