@@ -34,7 +34,7 @@ jobs:
       # Step 4: Build the Go app
       - name: Build Go application
         run: |
-          go build -ldflags "-X main.version=${{ env.commit }}" -o app cmd/api/*
+          go build -ldflags "-X main.version=${{ github.sha }}" -o app cmd/api/*
 
       # Step 5: Build and tag Docker image
       - name: Build Docker image
