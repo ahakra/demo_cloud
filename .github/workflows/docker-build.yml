@@ -52,6 +52,6 @@ jobs:
       # Step 7: Push Docker image
       - name: Push Docker image
         run: |
-          docker tag demo-cloud:${{ env.commit }} ghcr.io/ahakra/demo_cloud:${{ env.commit }}
-          docker push ghcr.io/ahakra/demo_cloud:${{ env.commit }}
+          docker tag demo-cloud:${{ github.sha }} ghcr.io/ahakra/demo_cloud:${{ github.sha }}
+          docker push ghcr.io/ahakra/demo_cloud:${{ github.sha }}
 
