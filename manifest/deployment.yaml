@@ -24,7 +24,8 @@ spec:
             - name: MY_SECRET_KEY
               value: "${TOP_SECRET}" # Placeholder for the secret
 
-----
+
+---
 
 apiVersion: v1
 kind: Service
