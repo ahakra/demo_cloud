@@ -71,12 +71,12 @@ jobs:
       - name: Debug Environment Variables
         run: |
           echo "NORMAL VAULE is: ${{env.NORMAL_VALUE}}
-          env | grep TOP_SECRET_ENV_VAR
+         
 
       - name: Replace placeholders
         run: |
             sed -i "s|\${IMAGE_TAG}|${{ github.sha }}|g" manifest/deployment.yaml
-            sed -i "s|\${TOP_SECRET}|$TOP_SECRET|g" manifest/deployment.yaml
+            sed -i "s|\${TOP_SECRET}|${{env.NORMAL_VALUE}}|g" manifest/deployment.yaml
 
       - name: Apply Kubernetes manifest
         run: |
