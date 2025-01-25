@@ -70,7 +70,7 @@ jobs:
 
       - name: Debug Environment Variables
         run: |
-          echo "NORMAL VAULE is: ${{env.NORMAL_VALUE}}
+          echo "NORMAL VAULE is: ${{env.NORMAL_VALUE}}"
          
 
       - name: Replace placeholders
