@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 )
@@ -8,6 +9,11 @@ import (
 func (app *application) healthcheckHandler(w http.ResponseWriter, r *http.Request) {
 
 	value := os.Getenv("MY_SECRET_KEY")
+	if value == "" {
+		app.logger.Info("empty secret key")
+	} else {
+		fmt.Println("MY_SECRET_KEY:", value)
+	}
 
 	res := responseData{
 		"Status":      "Available",
