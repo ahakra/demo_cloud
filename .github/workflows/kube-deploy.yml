@@ -69,9 +69,15 @@ jobs:
               echo "The topsecret is  $TOP_SECRET_ENV_VAR"
       - name: Debug Environment Variables
         run: env | grep TOP_SECRET_ENV_VAR
+
+      - name: Set commit hash as environment variable
+        run: |
+              echo "commit=${{ github.sha }}" >> $GITHUB_ENV
+
+
       - name: Replace placeholders
         run: |
-            sed -i "s|\${IMAGE_TAG}|${{ github.sha }}|g" manifest/deployment.yaml
+            sed -i "s|\${IMAGE_TAG}|${{ env.commit }}|g" manifest/deployment.yaml
             sed -i "s|\${TOP_SECRET}|$TOP_SECRET|g" manifest/deployment.yaml
 
       - name: Apply Kubernetes manifest
