@@ -14,7 +14,7 @@ COPY ../.. .
 
 # Build the application
 ARG COMMIT_HASH
-RUN go build -ldflags "-X main.version=${COMMIT_HASH}" -o app cmd/api/*
+RUN go build -ldflags "-X main.Version=${COMMIT_HASH}" -o app cmd/api/*
 
 # Use a minimal runtime image
 FROM alpine:latest
