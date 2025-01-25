@@ -63,13 +63,15 @@ jobs:
             secrets: |
               secret/data/democloud/config topsecret | TOP_SECRET_ENV_VAR
             
-
       - name: Use the Vault secret
         run: |
-              echo "The topsecret is  $TOP_SECRET_ENV_VAR"
-      - name: Debug Environment Variables
-        run: env | grep TOP_SECRET_ENV_VAR
+          echo "The topsecret is $TOP_SECRET_ENV_VAR"
+          echo "NORMAL_VALUE=$TOP_SECRET_ENV_VAR" >> $GITHUB_ENV
 
+      - name: Debug Environment Variables
+        run: |
+          echo "NORMAL VAULE is: ${{env.NORMAL_VALUE}}
+          env | grep TOP_SECRET_ENV_VAR
 
       - name: Replace placeholders
         run: |
